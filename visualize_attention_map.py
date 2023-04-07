@@ -42,8 +42,8 @@ def main():
     im = Image.open("attention_data/welsh-corgi-1581119_960_720.jpg")
     x = transform(im)
     print(x.size())
-
-    logits, att_mat = model(x.unsqueeze(0))
+    # TODO: understand how to get att_mat
+    logits, att_mat = model(x.unsqueeze(0))  # [1,1000]; 12*[1,12,197,197]
 
     att_mat = torch.stack(att_mat).squeeze(1)
 
