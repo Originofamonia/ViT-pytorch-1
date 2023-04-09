@@ -1,6 +1,7 @@
 import typing
 import io
 import os
+import sys
 
 import torch
 import numpy as np
@@ -31,7 +32,7 @@ def main():
     # Prepare Model
     config = CONFIGS["ViT-B_16"]
     model = VisionTransformer(config, num_classes=1000, zero_head=False, img_size=224, vis=True)
-    model.load_from(np.load("attention_data\ViT-B_16-224.npz"))
+    model.load_from(np.load("attention_data/ViT-B_16-224.npz"))
     model.eval()
 
     transform = transforms.Compose([
@@ -76,6 +77,8 @@ def main():
     ax2.set_title('Attention Map')
     _ = ax1.imshow(im)
     _ = ax2.imshow(result)
+    plt.savefig(f'outputs/att_map.png')
+    plt.close(fig)
 
     probs = torch.nn.Softmax(dim=-1)(logits)
     top5 = torch.argsort(probs, dim=-1, descending=True)
@@ -94,6 +97,8 @@ def main():
         ax2.set_title('Attention Map_%d Layer' % (i+1))
         _ = ax1.imshow(im)
         _ = ax2.imshow(result)
+        plt.savefig(f'outputs/att_map_{i}.png')
+        plt.close(fig)
 
 
 if __name__ == '__main__':

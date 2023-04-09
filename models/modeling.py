@@ -16,11 +16,8 @@ import numpy as np
 from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNorm
 from torch.nn.modules.utils import _pair
 from scipy import ndimage
-
-import models.configs as configs
-
 from .modeling_resnet import ResNetV2
-
+import models.configs as configs
 
 logger = logging.getLogger(__name__)
 
